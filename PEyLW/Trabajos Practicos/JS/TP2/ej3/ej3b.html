@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="mostrar"></div>
+
+    <script type="text/javascript">
+        var numLista = document.getElementById('mostrar');
+        var numeros = "";
+
+        for (let i = 2; i < 500; i += 2) {
+            numeros += i + " ";
+        }
+
+        numLista.innerText = numeros;
+
+
+    </script>
+
+    <hr>
+
+    <div id="menosCien"></div>
+    
+    <script type="text/javascript">
+                i = 0;
+        // función f(x) = 3 * x + 5 – x^2
+        while (i < 100) {
+            let res = (3 * i) + 5 - (Math.pow(i,2));  
+            document.getElementById("menosCien").innerHTML += res + " ";
+            
+            i++
+        }
+    </script>
+
+</body>
+</html>

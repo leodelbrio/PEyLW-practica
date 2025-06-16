@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Colores</h2>
+    <ul>
+        <li>Blanco</li>
+        <li onmousemove="cambiarColor(this , 'negro')" onmouseout="cambiarColor(this , 'blanco')">Negro</li>
+        <li onmousemove="cambiarColor(this , 'azul')" onmouseout="cambiarColor(this , 'blanco')">Azul</li>
+        <li onmousemove="cambiarColor(this , 'rojo')" onmouseout="cambiarColor(this , 'blanco')">Rojo</li>
+        <li onmousemove="cambiarColor(this , 'amarillo')" onmouseout="cambiarColor(this , 'blanco')">Amarillo</li>
+    </ul>
+
+    <li>
+        <span onclick="desplegar(this);">Rio Negro</span> <u>ACA</u>
+        <ul>
+            <li>Allen</li>
+            <li>Fernanzes Oro</li>
+            <li>General Roca</li>
+        </ul>
+    </li>
+    
+    <button onclick="navs();">Data</button>
+
+    <div id="aviso"></div>
+
+    <script type="text/javascript">
+
+        function navs() {
+            switch (navigator.appName) {
+                case ('Microsoft Internet Explorer'):
+                window.open('youtube.com')
+                break;
+                case ('Firefox'):
+                window.open('youtube.com')
+                break;
+                case ('Konkeror'):
+                window.open('youtube.com')
+                break;
+                case ('Netscape'):
+                window.open(src="youtube.com")
+                break;
+                default:
+                    document.getElementById('aviso').innerHTML = "No se encontro el nav"
+            }
+        }
+
+
+        function cambiarColor (elemento , color) {
+
+            switch (color) {
+                case 'blanco':
+                    elemento.style.backgroundColor = "white";
+                    break;
+                case 'negro':
+                    elemento.style.backgroundColor = "black";
+                    break;
+                case 'azul':
+                    elemento.style.backgroundColor = "blue";
+                    break;
+                case 'rojo':
+                    elemento.style.backgroundColor = "red";
+                    break;
+                case 'amarillo':
+                    elemento.style.backgroundColor = "yellow";
+                    break; 
+                default:
+                    break;
+            }
+        }
+
+        function desplegar(des) {
+            var ciudades = des.nextElementSibling.nextElementSibling;
+            var placeholder = des.nextElementSibling;
+
+            if (ciudades.style.display === 'none') {
+                ciudades.style.display = 'block';
+                placeholder.style.display = 'inline';
+                des.style.textDecoration = 'none';
+            }else {
+                ciudades.style.display = 'none';
+                placeholder.style.display = 'none';
+                des.style.textDecoration = 'underline';
+            };
+        };
+    </script>
+</body>
+</html>

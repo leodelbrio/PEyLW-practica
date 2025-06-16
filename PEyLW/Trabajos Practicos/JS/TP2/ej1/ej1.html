@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="ej1.js" defer></script>
+</head>
+<body>
+    Numero 1 <input type="text" name="n1" id="n1"><br>
+    Numero 2 <input type="text" name="n2" id="n2"><br>
+
+    <button onclick="sumar () , valorSeleccion();">Sumar </button>
+    <button onclick="restar (),  valorSeleccion();">Restar</button>
+    <button onclick="multiplicar(),  valorSeleccion();">Multiplicar </button>
+    <button onclick="dividir(),  valorSeleccion();">Dividir</button>
+    <button onclick="potencia(), valorSeleccion();">Potencia </button>
+    <button onclick="raiz (),  valorSeleccion();">Raiz </button> <br>
+
+    <h2>Resultados</h2>
+
+    <textarea name="salida" id="salida" rows="10" cols="50"></textarea>
+    <textarea name="salida2" id="salida2" rows="1" cols="5"></textarea>
+
+
+    <h1>Conversor de divisas </h1>
+
+    <ul>
+        <li>1 Dolar es igual a 1.179 pesos Argentinos</li>
+        <li>1 Real es igual a 212 pesos Argentinos</li>
+        <li>1 Euro es igual a 1.362 pesos Argentinos</li>
+    </ul>
+
+
+    Ingrese la cantidad: <input type="text" id="cantPlata">
+        
+    <select id="divisa">
+        <option value="">Seleccion</option>        
+        <option value="PD">Pesos a dolar</option>
+        <option value="DP">Dolar a peso</option>
+        <option value="PR">Peso a Real</option>
+        <option value="RP">Real a Peso</option>
+        <option value="PE">Peso a Euro</option>
+        <option value="EP">Euro a Peso</option>
+    </select>
+
+    <button onclick="conversor();">Convertir</button><br>
+
+    <textarea name="salidaPlata" id="salidaPlata" rows="10" cols="50"></textarea>
+
+</body>
+</html>

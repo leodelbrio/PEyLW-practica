@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var mensaje
+        mensaje=prompt('Ingrese un mensaje')
+
+        document.write('En mayusculas: ' , mensaje.toUpperCase() , '<br>');
+
+        document.write('En minusculas: ' , mensaje.toLowerCase() , '<br>');
+
+        document.writeln('Desde la posicion cinco: ' , mensaje.substring(5,10) , '<br>');
+
+        if (mensaje.toLowerCase().includes("hola")){
+            alert('Hola que tal?')
+        };
+
+        var sinHola = mensaje.replace(/\s/g, '').replace(/hola/g, '')
+        document.write('Sin espacios ni Hola: ' , sinHola , '<br>')
+
+        var ingles = mensaje.replace(/mi/g, 'my').replace(/nombre/g, 'name').replace(/es/g, 'is').replace(/hola/g, 'hello');
+        document.write('Al ingles: ' , ingles , '<br>');
+
+    </script>
+</body>
+</html>

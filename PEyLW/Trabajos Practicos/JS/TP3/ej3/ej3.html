@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>CHAT</h1>
+    <hr>
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre"> <br><br>
+    <textarea id="mensaje" cols="50" rows="10"></textarea>
+    <button id="enviar" onclick="enviarMensaje()">Enviar Mensaje</button> <br><br>
+
+    <div id="chat"></div>
+
+    <script type="text/javascript">
+        function enviarMensaje () {
+            var nombre = document.getElementById('nombre').value;
+
+            var muchoTexto = document.getElementById('mensaje');
+            var fechaActual = new Date();
+            var fechaText = `${fechaActual.getDate()}/${fechaActual.getMonth() + 1}/${fechaActual.getFullYear()} 
+                ${fechaActual.getHours()}:${fechaActual.getMinutes()}:${fechaActual.getSeconds()}`;
+
+            document.getElementById('chat').innerHTML+= '<p>' + fechaText + ' por ' + nombre + ':' + '<br>' + muchoTexto.value + "<br>";
+
+            document.getElementById('mensaje').value = "";
+            document.getElementById('mensaje').focus();    
+        }
+    </script>
+
+</body>
+</html>

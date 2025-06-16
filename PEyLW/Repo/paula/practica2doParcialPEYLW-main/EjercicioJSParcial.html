@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Parcial JS </title>
+<link href="default.css" rel="stylesheet" type="text/css" />
+<script>
+function rango_anio(elemento) {
+  var numero = parseInt(elemento.value, 10);
+  var anioActual = new Date().getFullYear();
+  if (isNaN(numero) || numero < 1900 || numero > anioActual) {
+    elemento.style.borderColor = "red";
+    elemento.focus();
+    return false;
+  } else {
+    elemento.style.borderColor = "";
+    return true;
+  }
+}
+
+function rango_calificaciones(elemento) {
+  var numero = parseInt(elemento.value, 10);
+  if (isNaN(numero) || numero < 1 || numero > 10) {
+    elemento.style.borderColor = "red";
+    elemento.focus();
+    return false;
+  } else {
+    elemento.style.borderColor = "";
+    return true;
+  }
+}
+
+function verificarCampos() {
+  var txtpelicula = document.getElementById("txtPelicula");
+  var director = document.getElementById("txtDirector");
+  var anio = document.getElementById("txtAnio");
+  var calificacion = document.getElementById("txtCalificacion");
+  var opinion = document.getElementById("txtOpinion");
+
+  var valido = true;
+
+  if (!txtpelicula.value) {
+    txtpelicula.style.borderColor = "red";
+    valido = false;
+  } else {
+    txtpelicula.style.borderColor = "";
+  }
+
+  if (!director.value) {
+    director.style.borderColor = "red";
+    valido = false;
+  } else {
+    director.style.borderColor = "";
+  }
+
+  if (!anio.value || !rango_anio(anio)) {
+    valido = false;
+  }
+
+  if (!calificacion.value || !rango_calificaciones(calificacion)) {
+    valido = false;
+  }
+
+  if (!opinion.value) {
+    opinion.style.borderColor = "red";
+    valido = false;
+  } else {
+    opinion.style.borderColor = "";
+  }
+
+  return valido;
+}
+
+function enviar() {
+  if (!verificarCampos()) {
+    alert("Por favor, complete correctamente todos los campos.");
+    return;
+  }
+
+  var txtpelicula = document.getElementById("txtPelicula").value;
+  var director = document.getElementById("txtDirector").value;
+  var anio = document.getElementById("txtAnio").value;
+  var calificacion = document.getElementById("txtCalificacion").value;
+  var opinion = document.getElementById("txtOpinion").value;
+  var numero = parseInt(calificacion);
+  var salida1 = document.getElementById("PMalas");
+  var salida2 = document.getElementById("PRegulares");
+  var salida3 = document.getElementById("PBuenas");
+
+  var datosPelicula = "<hr>Pelicula: " + txtpelicula + "<br>" +
+                      "Director: " + director + "<br>" +
+                      "Año: " + anio + "<br>" +
+                      "Calificación: " + calificacion + "<br>" +
+                      "Opinión: " + opinion + "<hr>";
+
+  if (numero >= 1 && numero <= 3) {
+    salida1.innerHTML += datosPelicula;
+  } else if (numero >= 4 && numero <= 6) {
+    salida2.innerHTML += datosPelicula;
+  } else if (numero >= 7 && numero <= 10) {
+    salida3.innerHTML += datosPelicula;
+  }
+
+  borrar();
+}
+
+function borrar() {
+  document.getElementById("form").reset();
+  document.getElementById("txtPelicula").style.borderColor = "";
+  document.getElementById("txtDirector").style.borderColor = "";
+  document.getElementById("txtAnio").style.borderColor = "";
+  document.getElementById("txtCalificacion").style.borderColor = "";
+  document.getElementById("txtOpinion").style.borderColor = "";
+}
+
+</script>
+</head>
+<body>
+<div id="header">
+<div id="logo">
+<h1><a href="#">Parcial JS</a></h1>
+<h2><a href="http://www.freecsstemplates.org/">By Free CSS Templates</a></h2>
+</div>
+</div>
+<div id="menu">
+<ul>
+    <li><a href="Consigna.html">Consigna</a></li>
+    <li><a href="EjercicioJSParcial.html">HOJA Ejercicio</a></li>
+</ul>
+</div>
+<div id="content">
+
+<form id="form">
+<table>
+<tr>
+<td>Pelicula:</td><td><input id="txtPelicula" name="txtPelicula" type="text" style="width:280px" required /></td>
+</tr>
+<tr>
+<td>Director:</td><td><input id="txtDirector" name="txtDirector" type="text" style="width:280px" required /></td>
+</tr>
+<tr>
+<td>A&ntilde;o:</td><td><input id="txtAnio" onblur="rango_anio(this)" name="txtAnio" type="text" style="width:64px" required /></td>
+</tr>
+<tr>
+<td>Calificaci&oacute;n:</td><td><input id="txtCalificacion" onblur="rango_calificaciones(this)" name="txtCalificacion" type="text" style="width:64px" required/></td>
+</tr>
+<tr>
+<td>Opini&oacute;n:</td><td><textarea id="txtOpinion" name="txtOpinion" style="width:280px" required></textarea></td>
+</tr>
+<tr>
+<td>&nbsp;</td><td><input type="button" onclick="enviar()" value="Registrar"></td>
+</tr>
+
+</table>
+</form>
+<p></p>
+
+<table style="width:100%">
+
+<tr>
+<th style="size:33%">Malas</th>
+<th style="size:33%">Regulares</th>
+<th style="size:34%">Buenas</th>
+
+</tr>
+
+<tr>
+<td>
+<div id="PMalas" style="width:100%;background-color:#FFBBBB">
+</div>
+</td>
+<td>
+<div id="PRegulares" style="width:100%;background-color:#BBBBFF">
+</div>
+</td>
+<td>
+<div id="PBuenas" style="width:100%;background-color:#BBFFBB">
+</div>
+</td>
+</tr>
+</table>
+
+</div>
+<div id="footer">
+<p id="legal">Copyright &copy; 2007 AtomoHost. All Rights Reserved.
+Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+<p id="links"><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+</div>
+<br />
+<br />
+</body>
+</html>

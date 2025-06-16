@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        th {
+            background-color: #ddd;
+        }
+        .borrar {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Agenda</h1>
+
+    <form id="formulario">
+        <label>Nombre: <input type="text" id="nombre"></label><br>
+        <label>Direccion <input type="text" id="direccion"></label><br>
+        <label>Ciudad <input type="text" id="ciudad"></label><br>
+        <label>Telefono <input type="text" id="telefono"></label><br><br>
+        <button type="button" onclick="agregarFila();">Agregar</button>
+    </form>
+
+    <br><hr><br>
+
+    <table id="agenda">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Ciudad</th>
+                <th>Telefono</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpoTabla"></tbody>
+    </table>
+
+    <script>
+        var datos = [
+            ["Juan Pérez", "Av. Argentina 3000", "Neuquén Capital", "154888888"],
+            ["Tito Sánchez", "Av. Del Trabajador 300", "Neuquén Capital", "154555555"],
+            ["Cecilia Carrizo", "Sierra Grande 900", "Neuquén Capital", "4485895"],
+            ["Pedro González", "Amaranto Usares 1254", "Neuquén Capital", "4420444"],
+            ["Verónica Lozano", "Saturnino Torres 100", "Neuquén Capital", "5425842"]
+        ];
+
+        function mostrarTabla () {
+            let cuerpo = document.getElementById('cuerpoTabla');
+            cuerpo.innerHTML = "";
+
+            for (let i = 0; i < datos.length; i++){
+                let fila = `<tr>
+                    <td>${datos[i][0]}</td>
+                    <td>${datos[i][1]}</td>
+                    <td>${datos[i][2]}</td>
+                    <td>${datos[i][3]}</td>
+                    <td><span class="borrar" onclick="borrarFila(${i})">Borrar</span></td>
+                    </tr>`;
+                    cuerpo.innerHTML += fila;
+            }
+        }
+
+        function borrarFila (indice) {
+            if (confirm("Deseas borrar esta fila?")) {
+                datos.splice(indice, 1);
+                mostrarTabla();
+            }
+        }
+
+        function agregarFila () {
+            let nombre = document.getElementById("nombre").value.trim();
+            let direccion = document.getElementById("direccion").value.trim();
+            let ciudad = document.getElementById("ciudad").value.trim();
+            let telefono = document.getElementById("telefono").value.trim();
+
+            if (nombre && direccion && ciudad && telefono) {
+                datos.push([nombre, direccion, ciudad, telefono]);
+                mostrarTabla();
+                document.getElementById("formulario").reset();
+            } else {
+                alert("Por favor completá todos los campos.");
+            }
+        }
+
+        mostrarTabla();
+
+
+    </script>
+</body>
+</html>

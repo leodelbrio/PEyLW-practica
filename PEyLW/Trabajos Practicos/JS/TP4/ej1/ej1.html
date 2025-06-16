@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        <script type="text/javascript">
+        function modLis() {
+            const lista = document.getElementById('lista');
+            DOM(lista);
+        }
+
+        function DOM(objeto) {
+            switch (objeto.nodeType) {
+                case 1: // Nodo de elemento (element)
+                    objeto.style.color = "red";
+                    alert(
+                        'Elemento\n' +
+                        'Node Type: ' + objeto.nodeType +
+                        "\nTag Name: " + objeto.tagName +
+                        "\nContenido:\n" + objeto.innerHTML
+                    );
+
+                    const hijos = objeto.childNodes;
+                    for (let i = 0; i < hijos.length; i++) {
+                        DOM(hijos[i]);
+                    }
+                    break;
+
+                case 3: // Nodo de texto (text)
+                    const texto = objeto.nodeValue.trim();
+                    if (texto !== '') {
+                        alert("Texto\nNode Type: " + objeto.nodeType + "\nContenido: " + texto);
+                    }
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+    
+    <h1>Listas</h1>
+
+    <div id="lista">
+        <ul>
+            <li>Menu 1</li>
+            <ul>
+                <li>Item 1</li>
+                    <ul>
+                        <li>item a</li>
+                        <li>item b</li>
+                    </ul>
+                <li>Item 2</li>
+            </ul>
+            <li>Item 2</li>
+            
+            <li>Menu 2</li>
+            <ul>
+                <li>item 3</li>
+                <li>item 4</li>
+            </ul>
+        </ul>
+    </div>
+
+    <input type="button" onclick="modLis();" value="listar">
+</body>
+</html>

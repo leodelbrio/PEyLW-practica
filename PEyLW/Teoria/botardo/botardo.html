@@ -1,0 +1,533 @@
+tengo esta consigna y necesito que me ayudes, pero no a resolver la consigna en si, si no para que me indiques por ejemplo, como verificar que los campos de un formulario estén completos, así puedo aprender y reutilizarlos 
+
+
+ChatGPT Plus
+¡Perfecto! Es una excelente forma de aprender: entender cómo se hace, no solo tener el resultado. Vamos paso a paso con lo que pedís: cómo verificar que los campos de un formulario estén completos usando JavaScript externo (como venís haciendo en tu tarea PEyLW).
+
+✅ 1. Qué significa "verificar que estén completos"
+Significa asegurarse de que el usuario haya ingresado algo (no estén vacíos) en los campos obligatorios (por ejemplo, nombre, email, etc.) antes de enviar el formulario.
+
+🧪 2. Ejemplo base de un formulario HTML
+html
+Copiar
+Editar
+<form id="formulario" onsubmit="return validar();">
+  <input type="text" id="nombre" placeholder="Nombre">
+  <input type="text" id="apellido" placeholder="Apellido">
+  <input type="email" id="email" placeholder="Correo electrónico">
+  <button type="submit">Enviar</button>
+</form>
+Usamos onsubmit="return validar();" para que JavaScript pueda validar antes del envío.
+
+🧠 3. Validación básica en funciones.js
+javascript
+Copiar
+Editar
+function validar() {
+  // Tomamos los campos
+  var nombre = document.getElementById("nombre").value.trim();
+  var apellido = document.getElementById("apellido").value.trim();
+  var email = document.getElementById("email").value.trim();
+
+  // Verificamos si alguno está vacío
+  if (nombre === "" || apellido === "" || email === "") {
+    alert("Por favor, complete todos los campos.");
+    return false; // Evita que el formulario se envíe
+  }
+
+  return true; // Todo está bien, se puede enviar
+}
+🧩 Qué hace cada parte:
+.value → toma el contenido del campo.
+
+.trim() → elimina espacios vacíos al principio o final.
+
+if (campo === "") → detecta si está vacío.
+
+return false → frena el envío del formulario.
+
+🛠️ 4. Reutilizable con más campos
+Podés armar una función más general si tenés muchos campos:
+
+javascript
+Copiar
+Editar
+function validar() {
+  var campos = ["nombre", "apellido", "email"]; // IDs de los campos
+  for (var i = 0; i < campos.length; i++) {
+    var valor = document.getElementById(campos[i]).value.trim();
+    if (valor === "") {
+      alert("El campo " + campos[i] + " está vacío.");
+      return false;
+    }
+  }
+  return true;
+}
+✅ 5. Tips para reutilizar
+Siempre usa id únicos en los campos si los vas a llamar con getElementById.
+
+Usá .trim() para evitar que pongan solo espacios.
+
+Podés mostrar errores en pantalla en lugar de alertas con innerHTML.
+
+¿Querés que te muestre también cómo hacer que el mensaje de error aparezca en el HTML en lugar de mostrar un alert()? Eso es lo que se suele pedir también.
+
+
+
+
+
+
+
+
+Tú dijiste:
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Parcial JS - Consigna</title>
+  <link href="default.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div id="header">
+    <div id="logo" style="margin-left: 15px">
+      <h1><a href="#">Programación Estática y Laboratorio Web</a></h1>
+      <h2><a href="#">Parcial JS - 27/06/2023</a></h2>
+    </div>
+  </div>
+  <div id="menu">
+    <ul>
+      <li><a href="Consigna.html">Consigna</a></li>
+      <li><a href="EjercicioJSParcial.html">HOJA Ejercicio</a></li>
+    </ul>
+  </div>
+  <div id="content">
+    <div id="main">
+      <h3Ejercicio< /h3>
+        <p>
+          Un centro electoral debe ir registrando los votos que se hacen a los candidatos.
+          Los candidatos son dos: KODOS y KANG.
+          A tales efectos se encuentra desarrollado un formulario en que cual se ingresa:</p>
+        <ul>
+          <li>DNI (el voto no es secreto)</li>
+          <li>El voto (escrito en texto). Hay 3 opciones
+            <ul>
+              <li>KODOS</li>
+              <li>KANG</li>
+              <li>Blanco</li>
+            </ul>
+          </li>
+          <li>Sexo. Debe ser alguna de las siguientes: M/F</li>
+        </ul>
+
+
+        <p>La aplicación debe realizar las siguientes acciones al momento de presionar
+          registrar: </p>
+        <ul>
+          <li>Verificar que todos los campos del formulario estén completos.</li>
+          <li>Verificar que se haya escrito alguna de las tres opciones posibles sin importar may/min</li>
+          <li>Verificar que el DNI sea un número en un rango entre 10.000.000 y 99.999.999</li>
+          <li>Verificar que el sexo sea "M" o "F" (sin importar may/min).</li>
+          <li>Verificar que esa persona (DNI) no haya votado previamente.</li>
+          <li>Luego de realizadas las verificaciones, debe sumarse el voto al candidato que corresponde.
+            Para ello estan creados los siguientes spans que inicialmente tiene el numero "0"
+            <ul>
+              <li>KANG (span ResultadosKang)</li>
+              <li>KODOS (span ResultadosKodos)</li>
+              <li>En Blanco (span ResultadosBlanco)</li>
+            </ul>
+          </li>
+          <li>
+            El DNI debe <strong>adicionarse</strong> al div "Votantes", separado por "-"
+          </li>
+          <li>En el caso de que un DNI ya haya sido registrado el sistema debe emitir una alerta con el
+            mensaje "Esta
+            persona ya emitió su voto. El fraude está mal claro que sí" y no debe permitir continuar.
+            Ver más abajo.
+          </li>
+          <li>
+            Luego de la emisión del voto debe limpiarse el formulario
+          </li>
+        </ul>
+
+        <br>
+        <p>Botón cierre de mesa. Cuando se presiona el sistema debe informar:</p>
+
+        <ul>
+          <li>Ganador (reemplace la X por la cantidad de votos de diferencia):
+            <ul>
+              <li>Ganó KANG por X votos! (y la foto de kang)</li>
+              <li>Ganó KODOS por X votos! (y la foto de kodos)</li>
+              <li>Empate</li>
+            </ul>
+          </li>          
+          <li>Los resultados deben informase en el div cuyo id es "dResultados". El mismo existe en el html pero inicializa invisible.</li>
+          <li>Luego del cierre de mesa, no debe permitirse el ingreso de ningún nuevo voto. Bloquee los botones correspondientes</li>
+        </ul>
+
+
+
+
+
+        <p>
+          Se considerará favorablemente que los errores detectados (por ejemplo numero de DNI incorrecto) se
+          informen mediante
+          cambios de estilo en el input, en lugar de un alert.
+          Si cambia un estilo para marcar un error recuerde revertir el cambio cuando se limpia el formulario
+          para el siguiente voto.
+        </p>
+        <p>
+          <strong>Completar la p&aacute;gina EjercicioJSParcial.html con el código Javascript que
+            corresponde</strong>
+        <p>
+          <small>* La seccion script ya está creada. Encontrará una ayuda allí.</small>
+        </p>
+
+        <br />
+        <br />
+
+    </div>
+
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+
+  <div id="footer">
+    <p id="legal">Copyright © AtomoHost. All Rights Reserved. Designed by ned by <a
+        href="http://www.freecsstemplates.org/">Free CSS
+        Templates</a>.</p>
+    <p id="links"><a href="#">Privacy Policy</a> | <a href="#">Terms
+        of Use</a></p>
+  </div>
+</body>
+
+</html>
+
+
+ChatGPT Plus
+¡Excelente! Esta consigna es muy completa, así que lo mejor es que vayamos dividiendo el trabajo en pequeñas funciones reutilizables, tal como me pediste antes: para que aprendas cómo encarar validaciones, detecciones de errores y actualización de resultados en el DOM.
+
+📌 ¿Qué necesitas saber primero para avanzar?
+Antes de escribir código, conviene tener claros los bloques funcionales que vas a tener que hacer con JavaScript. Acá te muestro cómo podés pensar y estructurar tu archivo funciones.js.
+
+🧩 1. Verificar que los campos estén completos
+¿Cómo hacerlo bien y reutilizable?
+
+Supongamos que tenés un formulario con estos campos (id ficticios):
+
+html
+Copiar
+Editar
+<input type="text" id="dni" />
+<input type="text" id="voto" />
+<input type="text" id="sexo" />
+Podés hacer algo como esto:
+
+javascript
+Copiar
+Editar
+function estaCompleto(idCampo) {
+    const valor = document.getElementById(idCampo).value.trim();
+    return valor !== "";
+}
+Y entonces, validar así:
+
+javascript
+Copiar
+Editar
+if (!estaCompleto("dni") || !estaCompleto("voto") || !estaCompleto("sexo")) {
+    // marcar campos en rojo o mostrar mensaje
+    return false;
+}
+🧩 2. Validar voto (KODOS, KANG o Blanco)
+javascript
+Copiar
+Editar
+function votoEsValido(voto) {
+    const opcionesValidas = ["kodos", "kang", "blanco"];
+    return opcionesValidas.includes(voto.toLowerCase());
+}
+🧩 3. Validar DNI numérico y en rango
+javascript
+Copiar
+Editar
+function dniEsValido(dni) {
+    const numero = parseInt(dni);
+    return !isNaN(numero) && numero >= 10000000 && numero <= 99999999;
+}
+🧩 4. Validar sexo (M o F)
+javascript
+Copiar
+Editar
+function sexoEsValido(sexo) {
+    const letra = sexo.toLowerCase();
+    return letra === "m" || letra === "f";
+}
+🧩 5. Prevenir doble voto
+Podés guardar los DNIs que ya votaron en un array:
+
+javascript
+Copiar
+Editar
+let votantesRegistrados = [];
+
+function yaVoto(dni) {
+    return votantesRegistrados.includes(dni);
+}
+Y si pasa:
+
+javascript
+Copiar
+Editar
+if (yaVoto(dni)) {
+    alert("Esta persona ya emitió su voto. El fraude está mal claro que sí");
+    return false;
+}
+🧩 6. Sumar el voto al contador correcto
+Tenés estos span:
+
+html
+Copiar
+Editar
+<span id="ResultadosKang">0</span>
+<span id="ResultadosKodos">0</span>
+<span id="ResultadosBlanco">0</span>
+Función para sumar:
+
+javascript
+Copiar
+Editar
+function sumarVoto(idSpan) {
+    const span = document.getElementById(idSpan);
+    let cantidad = parseInt(span.innerText);
+    span.innerText = cantidad + 1;
+}
+Y usarla así:
+
+javascript
+Copiar
+Editar
+if (voto === "KANG") {
+    sumarVoto("ResultadosKang");
+} else if (voto === "KODOS") {
+    sumarVoto("ResultadosKodos");
+} else {
+    sumarVoto("ResultadosBlanco");
+}
+🧩 7. Limpiar el formulario y resetear estilos
+javascript
+Copiar
+Editar
+function limpiarFormulario() {
+    document.getElementById("dni").value = "";
+    document.getElementById("voto").value = "";
+    document.getElementById("sexo").value = "";
+
+    // Resetear estilos si cambiaste color de bordes por error
+    ["dni", "voto", "sexo"].forEach(id => {
+        document.getElementById(id).style.border = "1px solid #ccc";
+    });
+}
+🧩 8. Mostrar errores con estilo (en vez de alert)
+javascript
+Copiar
+Editar
+function marcarError(idCampo) {
+    document.getElementById(idCampo).style.border = "2px solid red";
+}
+Ejemplo:
+
+javascript
+Copiar
+Editar
+if (!dniEsValido(dni)) {
+    marcarError("dni");
+    return false;
+}
+¿Querés que armemos juntos el esqueleto completo de funciones.js?
+Así podés tener todos estos bloques integrados y listos para completar según la lógica que te pidan. También puedo ayudarte a preparar el botón “Cierre de mesa” con comparación de votos y bloqueo del formulario. ¿Seguimos por ahí?
+
+
+
+
+
+
+
+
+Tú dijiste:
+si por favor, armemos el esqueleto de funciones.js
+
+
+ChatGPT Plus
+¡Perfecto! Vamos a crear un esqueleto bien organizado de funciones.js, siguiendo la lógica que te pide la consigna. Te dejo secciones separadas con comentarios para que sepas dónde agregar o modificar cosas. Todo está pensado para que puedas aprender, modificar y reutilizar.
+
+📄 funciones.js – Esqueleto completo
+javascript
+Copiar
+Editar
+// Variables globales
+let votantesRegistrados = []; // Array para guardar los DNI que ya votaron
+let mesaCerrada = false;      // Estado de la mesa
+
+// Función principal que se llama al presionar "Registrar"
+function registrarVoto() {
+  if (mesaCerrada) return;
+
+  // Obtener valores
+  const dni = document.getElementById("dni").value.trim();
+  const voto = document.getElementById("voto").value.trim();
+  const sexo = document.getElementById("sexo").value.trim();
+
+  // Resetear estilos
+  resetearEstilos(["dni", "voto", "sexo"]);
+
+  // Validaciones
+  let error = false;
+
+  if (!estaCompleto("dni")) { marcarError("dni"); error = true; }
+  if (!estaCompleto("voto")) { marcarError("voto"); error = true; }
+  if (!estaCompleto("sexo")) { marcarError("sexo"); error = true; }
+
+  if (!dniEsValido(dni)) { marcarError("dni"); error = true; }
+  if (!votoEsValido(voto)) { marcarError("voto"); error = true; }
+  if (!sexoEsValido(sexo)) { marcarError("sexo"); error = true; }
+
+  if (yaVoto(dni)) {
+    alert("Esta persona ya emitió su voto. El fraude está mal claro que sí");
+    marcarError("dni");
+    return;
+  }
+
+  if (error) return;
+
+  // Registrar el voto
+  registrarConteo(voto);
+  votantesRegistrados.push(dni);
+  agregarVotante(dni);
+  limpiarFormulario();
+}
+
+
+// ======= FUNCIONES DE VALIDACIÓN ======= //
+
+function estaCompleto(idCampo) {
+  const valor = document.getElementById(idCampo).value.trim();
+  return valor !== "";
+}
+
+function dniEsValido(dni) {
+  const numero = parseInt(dni);
+  return !isNaN(numero) && numero >= 10000000 && numero <= 99999999;
+}
+
+function votoEsValido(voto) {
+  const opciones = ["kodos", "kang", "blanco"];
+  return opciones.includes(voto.toLowerCase());
+}
+
+function sexoEsValido(sexo) {
+  const s = sexo.toLowerCase();
+  return s === "m" || s === "f";
+}
+
+function yaVoto(dni) {
+  return votantesRegistrados.includes(dni);
+}
+
+
+// ======= FUNCIONES DE RESULTADOS ======= //
+
+function registrarConteo(voto) {
+  const votoNormalizado = voto.toLowerCase();
+  if (votoNormalizado === "kang") {
+    sumarVoto("ResultadosKang");
+  } else if (votoNormalizado === "kodos") {
+    sumarVoto("ResultadosKodos");
+  } else {
+    sumarVoto("ResultadosBlanco");
+  }
+}
+
+function sumarVoto(idSpan) {
+  const span = document.getElementById(idSpan);
+  let cantidad = parseInt(span.innerText);
+  span.innerText = cantidad + 1;
+}
+
+function agregarVotante(dni) {
+  const div = document.getElementById("Votantes");
+  div.innerText += dni + " - ";
+}
+
+
+// ======= FUNCIONES DE INTERFAZ ======= //
+
+function marcarError(idCampo) {
+  document.getElementById(idCampo).style.border = "2px solid red";
+}
+
+function resetearEstilos(campos) {
+  campos.forEach(id => {
+    document.getElementById(id).style.border = "1px solid #ccc";
+  });
+}
+
+function limpiarFormulario() {
+  document.getElementById("dni").value = "";
+  document.getElementById("voto").value = "";
+  document.getElementById("sexo").value = "";
+  resetearEstilos(["dni", "voto", "sexo"]);
+}
+
+
+// ======= CIERRE DE MESA ======= //
+
+function cerrarMesa() {
+  mesaCerrada = true;
+
+  const votosKang = parseInt(document.getElementById("ResultadosKang").innerText);
+  const votosKodos = parseInt(document.getElementById("ResultadosKodos").innerText);
+
+  const dResultados = document.getElementById("dResultados");
+  dResultados.style.display = "block";
+
+  if (votosKang > votosKodos) {
+    dResultados.innerHTML = `Ganó KANG por ${votosKang - votosKodos} votos!<br><img src="kang.jpg" alt="Kang">`;
+  } else if (votosKodos > votosKang) {
+    dResultados.innerHTML = `Ganó KODOS por ${votosKodos - votosKang} votos!<br><img src="kodos.jpg" alt="Kodos">`;
+  } else {
+    dResultados.innerHTML = `Empate`;
+  }
+
+  // Bloquear botones
+  document.getElementById("btnRegistrar").disabled = true;
+  document.getElementById("btnCerrarMesa").disabled = true;
+}
+✅ ¿Qué te queda por hacer?
+Agregar los botones con id="btnRegistrar" y id="btnCerrarMesa" si no están todavía.
+
+Llamar a las funciones con los eventos:
+
+html
+Copiar
+Editar
+<button id="btnRegistrar" onclick="registrarVoto()">Registrar</button>
+<button id="btnCerrarMesa" onclick="cerrarMesa()">Cerrar Mesa</button>
+Crear los input y span con los IDs usados:
+
+dni, voto, sexo
+
+ResultadosKang, ResultadosKodos, ResultadosBlanco
+
+Votantes
+
+dResultados (con display: none en el CSS inicial)
+

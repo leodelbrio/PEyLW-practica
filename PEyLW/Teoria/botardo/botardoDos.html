@@ -1,0 +1,659 @@
+
+Conversación con Gemini
+puede ayudarme con codigo javascript?
+
+
+¡Claro que sí! Con gusto te ayudaré con código JavaScript.
+
+Para que pueda asistirte de la mejor manera posible, por favor, dime:
+
+¿Qué necesitas hacer? Explícame tu objetivo o el problema que quieres resolver.
+¿Qué tipo de código JavaScript estás buscando? ¿Es para una página web, Node.js, alguna librería o framework específico (como React, Angular, Vue), etc.?
+¿Tienes algún código existente que quieras que revise o mejore?
+¿Hay algún error específico que estés recibiendo?
+Cuanta más información me des, mejor podré ayudarte.
+
+
+
+
+
+
+tengo esta consigna y necesito que me ayudes, pero no a resolver la consigna en si, si no para que me indiques por ejemplo, como verificar que los campos de un formulario estén completos, así puedo aprender y reutilizarlos 
+
+
+
+¡Entendido! Me parece una excelente forma de aprender. No te daré la solución directa de la consigna, sino las herramientas y ejemplos específicos para que puedas resolverla por tu cuenta, enfocándonos en la verificación de campos de formulario.
+
+Aquí te explico cómo puedes verificar que los campos de un formulario estén completos en JavaScript, junto con ejemplos prácticos que puedes reutilizar:
+
+Verificación de Campos Vacíos en Formularios con JavaScript
+El objetivo principal es asegurarte de que un usuario no envíe un formulario con campos requeridos sin completar. Esto mejora la experiencia del usuario y la integridad de los datos.
+
+1. Acceder a los Elementos del Formulario
+Primero, necesitas obtener referencias a los elementos del formulario (inputs, textareas, selects) que quieres verificar.
+
+Métodos comunes:
+
+document.getElementById('idDelCampo'): Si tus campos tienen IDs únicos. Es el método más directo y recomendado.
+document.getElementsByName('nombreDelCampo'): Si tienes varios campos con el mismo atributo name (por ejemplo, para radio buttons o checkboxes). Retorna una NodeList.
+document.querySelector('.claseDelCampo') o document.querySelectorAll('input'): Selector CSS. querySelector devuelve el primer elemento que coincide, querySelectorAll devuelve una NodeList.
+Ejemplo HTML:
+
+HTML
+
+<form id="miFormulario">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="mensaje">Mensaje:</label>
+    <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+    <button type="submit">Enviar</button>
+</form>
+Ejemplo JavaScript (obteniendo los elementos):
+
+JavaScript
+
+const formulario = document.getElementById('miFormulario');
+const inputNombre = document.getElementById('nombre');
+const inputEmail = document.getElementById('email');
+const textareaMensaje = document.getElementById('mensaje');
+2. Evitar el Envío por Defecto del Formulario
+Cuando el usuario hace clic en un botón de tipo submit dentro de un <form>, el navegador intenta enviar el formulario automáticamente. Necesitamos interceptar este evento para realizar nuestras validaciones antes de permitir el envío.
+
+Esto se hace añadiendo un event listener al formulario y usando event.preventDefault().
+
+Ejemplo:
+
+JavaScript
+
+formulario.addEventListener('submit', function(event) {
+    // Aquí vamos a poner nuestras verificaciones
+    // Si la validación falla, prevenimos el envío:
+    // event.preventDefault();
+});
+3. Verificar si los Campos Están Vacíos
+La propiedad clave para verificar si un campo de texto (input text, email, password, textarea) está vacío es value. Para los select, también es value.
+
+Concepto: Si input.value.trim() es una cadena vacía, el campo está vacío. Usamos .trim() para eliminar cualquier espacio en blanco al principio o al final que el usuario pudiera haber introducido sin querer.
+
+Ejemplo (función para verificar un solo campo):
+
+JavaScript
+
+function esCampoVacio(elementoInput) {
+    return elementoInput.value.trim() === '';
+}
+
+// Dentro del event listener del formulario:
+formulario.addEventListener('submit', function(event) {
+    let hayErrores = false;
+
+    // Verificar el campo de nombre
+    if (esCampoVacio(inputNombre)) {
+        alert('El campo Nombre es obligatorio.');
+        inputNombre.focus(); // Opcional: enfocar el campo vacío para que el usuario lo vea
+        hayErrores = true;
+    }
+
+    // Puedes seguir agregando más verificaciones para otros campos aquí
+    // Por ejemplo, para el email:
+    if (esCampoVacio(inputEmail)) {
+        alert('El campo Email es obligatorio.');
+        inputEmail.focus();
+        hayErrores = true;
+    }
+
+    // Para el mensaje:
+    if (esCampoVacio(textareaMensaje)) {
+        alert('El campo Mensaje es obligatorio.');
+        textareaMensaje.focus();
+        hayErrores = true;
+    }
+
+    if (hayErrores) {
+        event.preventDefault(); // Detener el envío del formulario
+    } else {
+        // Si todo está bien, el formulario se enviará normalmente
+        // o puedes agregar aquí la lógica para enviarlo con fetch/Ajax
+        alert('Formulario enviado correctamente!'); // Solo para demostrar
+    }
+});
+4. Mejorando la Experiencia del Usuario: Mensajes de Error Dinámicos
+En lugar de alert(), es mucho mejor mostrar mensajes de error directamente en la página, junto al campo que los causó.
+
+Ejemplo HTML (añadiendo un espacio para errores):
+
+HTML
+
+<form id="miFormulario">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+    <p id="errorNombre" class="mensaje-error"></p> <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <p id="errorEmail" class="mensaje-error"></p>
+
+    <label for="mensaje">Mensaje:</label>
+    <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+    <p id="errorMensaje" class="mensaje-error"></p>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<style>
+    .mensaje-error {
+        color: red;
+        font-size: 0.9em;
+        margin-top: -5px; /* Ajuste para que quede más cerca del input */
+        margin-bottom: 10px;
+        display: none; /* Por defecto ocultos */
+    }
+    .campo-invalido {
+        border: 1px solid red;
+    }
+</style>
+Ejemplo JavaScript (con mensajes dinámicos):
+
+JavaScript
+
+const formulario = document.getElementById('miFormulario');
+const inputNombre = document.getElementById('nombre');
+const inputEmail = document.getElementById('email');
+const textareaMensaje = document.getElementById('mensaje');
+
+const errorNombre = document.getElementById('errorNombre');
+const errorEmail = document.getElementById('errorEmail');
+const errorMensaje = document.getElementById('errorMensaje');
+
+// Función para mostrar un error
+function mostrarError(elementoError, mensaje) {
+    elementoError.textContent = mensaje;
+    elementoError.style.display = 'block'; // Mostrar el párrafo del error
+    elementoError.previousElementSibling.classList.add('campo-invalido'); // Añadir borde rojo al input
+}
+
+// Función para limpiar un error
+function limpiarError(elementoError) {
+    elementoError.textContent = '';
+    elementoError.style.display = 'none'; // Ocultar el párrafo del error
+    elementoError.previousElementSibling.classList.remove('campo-invalido'); // Quitar borde rojo
+}
+
+formulario.addEventListener('submit', function(event) {
+    event.preventDefault(); // Siempre prevenir el envío por defecto al principio de la validación
+    let hayErrores = false;
+
+    // Limpiar errores previos al iniciar una nueva validación
+    limpiarError(errorNombre);
+    limpiarError(errorEmail);
+    limpiarError(errorMensaje);
+
+    // Validar Nombre
+    if (inputNombre.value.trim() === '') {
+        mostrarError(errorNombre, 'El nombre es obligatorio.');
+        hayErrores = true;
+    }
+
+    // Validar Email
+    if (inputEmail.value.trim() === '') {
+        mostrarError(errorEmail, 'El email es obligatorio.');
+        hayErrores = true;
+    } else if (!validarEmailFormato(inputEmail.value)) { // Ejemplo de validación adicional
+        mostrarError(errorEmail, 'Introduce un formato de email válido.');
+        hayErrores = true;
+    }
+
+    // Validar Mensaje
+    if (textareaMensaje.value.trim() === '') {
+        mostrarError(errorMensaje, 'El mensaje es obligatorio.');
+        hayErrores = true;
+    }
+
+    if (!hayErrores) {
+        // Si no hay errores, el formulario es válido y se puede enviar
+        // Aquí podrías usar fetch() o XMLHttpRequest para enviarlo vía AJAX
+        console.log('Formulario válido. Enviando datos...');
+        alert('Formulario enviado correctamente!');
+        formulario.submit(); // Opcional: si quieres el envío tradicional del navegador
+    }
+});
+
+// Función de ejemplo para validar formato de email (regex básico)
+function validarEmailFormato(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
+
+// Opcional: Limpiar errores en tiempo real al escribir
+inputNombre.addEventListener('input', () => limpiarError(errorNombre));
+inputEmail.addEventListener('input', () => limpiarError(errorEmail));
+textareaMensaje.addEventListener('input', () => limpiarError(errorMensaje));
+
+Puntos Clave para Reutilizar y Aprender:
+
+Función esCampoVacio(elementoInput): Esta pequeña función es muy reutilizable. Puedes pasarle cualquier elemento input, textarea o select y te dirá si está vacío.
+event.preventDefault(): Recuerda que es esencial para tomar el control del envío del formulario.
+input.value.trim() === '': Esta es la condición fundamental para verificar si un campo de texto está vacío. El .trim() es importante para ignorar espacios en blanco.
+Mensajes de Error Dinámicos: Aunque alert() es sencillo para empezar, siempre busca implementar una forma más amigable de mostrar errores al usuario.
+Reutiliza el enfoque: Puedes aplicar esta misma lógica (obtener elemento, verificar .value.trim(), mostrar/ocultar errores) para cualquier campo requerido.
+Validaciones Adicionales: Una vez que dominas la verificación de campos vacíos, puedes añadir validaciones más complejas (formato de email, longitud mínima, solo números, etc.). Te dejé un ejemplo básico para el email.
+Con estas bases, deberías poder abordar la verificación de campos en tu consigna de manera efectiva. Si tienes alguna otra duda o quieres ver un ejemplo específico (por ejemplo, para radio buttons o checkboxes), ¡no dudes en preguntar!
+
+
+Fuentes
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!--
+
+Design by Free CSS Templates
+
+http://www.freecsstemplates.org
+
+Released for free under a Creative Commons Attribution 2.5 License
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<title>Parcial JS - Consigna</title>
+
+<link href="default.css" rel="stylesheet" type="text/css" /></head>
+
+<body>
+
+<div id="header">
+
+<div id="logo">
+
+<h1><a href="#">Parcial JS</a></h1>
+
+<h2><a href="http://www.freecsstemplates.org/">By Free CSS
+
+Templates</a></h2>
+
+</div>
+
+</div>
+
+<div id="menu">
+
+<ul>
+
+    <li><a href="Consigna.html" >Consigna</a></li>
+
+    <li><a href="EjercicioJSParcial.html" >HOJA Ejercicio</a></li>
+
+</ul>
+
+</div>
+
+<div id="content">
+
+<div id="main">
+
+<h3Ejercicio</h3>
+
+    <p>
+
+        Un crítico de cine desea una mini aplicación para registrar sus películas. Para
+
+        ello completa con los datos de la pelicula un formulario y al momento de
+
+        presionar &quot;Registrar&quot; los datos de la pelicula se ingresan en su lugar
+
+        correspondiente, formateados de manera legible.</p>
+
+    <p>
+
+        La aplicación debe realizar las siguientes acciones al momento de presionar
+
+        registrar:     </p>
+
+    <ul>
+
+        <li>Verificar que todos los campos del formulario contengan valores. La verificación
+
+            debe resultar en un cambio visible del formulario: ejemplo, cambio de color de
+
+            fondo del elemento de formulario incorrecto, o cambio de color del borde.</li>
+
+        <li>Verificar que el año es un número entre el 1900 y el año actual.</li>
+
+        <li>Verificar que la calificacion sea un numero entre 1 y 10.</li>
+
+        <li>Luego de realizadas las verificaciones, los datos completos de la pelicula deben
+
+            acomodarse en su lugar correspondiente segun el siguiente criterio:<ul>
+
+                <li>Calificacion 1 a 3 inclusive: Pelicula Mala. (div PMalas)</li>
+
+                <li>Calificación 4 a 6 inclusive: Pelicula Regular (dic PRegulares)</li>
+
+                <li>Calificación 7 a 10 inclusive: Pelicular Buena (div PBuenas)</li>
+
+            </ul>
+
+        </li>
+
+        <li>Las peliculas ubicadas en los divs deben estar separadas entre si por una linea horizontal</li>
+
+        <li>Luego de insertarse una pelicula, deben borrarse los datos del formulario para continuar la
+
+            carga.</li>
+
+    </ul>
+
+    <p>
+
+        <b>Completar la p&aacute;gina EjercicioJSParcial.html con el código Javascript que
+
+        sea necesario para implementar la funcionalidad descripta.</b></p>
+
+    <p>
+
+        &nbsp;</p>
+
+
+
+<br />
+
+<br />
+
+
+
+</div>
+
+
+
+</div>
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+
+
+<div id="footer">
+
+<p id="legal">Copyright © 2007 AtomoHost. All Rights Reserved. Designed by ned by <a href="http://www.freecsstemplates.org/">Free CSS
+
+Templates</a>.</p>
+
+<p id="links"><a href="#">Privacy Policy</a> | <a href="#">Terms
+
+of Use</a></p>
+
+</div>
+
+</body>
+
+</html>
+
+
+
+¡Excelente! Gracias por compartir la consigna. Ahora entiendo mejor el contexto y puedo darte ejemplos más específicos para las verificaciones que necesitas, además de las de campos vacíos que ya vimos.
+
+Vamos a desglosar las validaciones y te daré código reutilizable para cada una:
+
+Verificaciones Específicas para tu Consigna
+Además de verificar que los campos no estén vacíos, tu consigna pide validaciones para el año y la calificación. Aquí te muestro cómo hacerlo.
+
+1. Verificación de Campos Vacíos (Repaso y Mejora)
+Ya lo cubrimos, pero reforcemos la idea de cómo aplicar los estilos para un cambio visible.
+
+HTML (asumo que tu EjercicioJSParcial.html tendrá un formulario similar):
+
+HTML
+
+<form id="registroPelicula">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+    <p class="error-message" id="errorTitulo"></p>
+
+    <label for="anio">Año:</label>
+    <input type="number" id="anio" name="anio" required>
+    <p class="error-message" id="errorAnio"></p>
+
+    <label for="calificacion">Calificación (1-10):</label>
+    <input type="number" id="calificacion" name="calificacion" required>
+    <p class="error-message" id="errorCalificacion"></p>
+
+    <label for="director">Director:</label>
+    <input type="text" id="director" name="director" required>
+    <p class="error-message" id="errorDirector"></p>
+
+    <button type="submit" id="btnRegistrar">Registrar</button>
+</form>
+
+<style>
+    .error-message {
+        color: #ff0000; /* Rojo */
+        font-size: 0.9em;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        display: none; /* Oculto por defecto */
+    }
+
+    .input-error {
+        border: 2px solid #ff0000; /* Borde rojo */
+        background-color: #ffe0e0; /* Fondo rosado claro */
+    }
+</style>
+JavaScript para campos vacíos y manejo de errores visibles:
+
+JavaScript
+
+// Obtener elementos del formulario
+const formPelicula = document.getElementById('registroPelicula');
+const inputTitulo = document.getElementById('titulo');
+const inputAnio = document.getElementById('anio');
+const inputCalificacion = document.getElementById('calificacion');
+const inputDirector = document.getElementById('director'); // Si tienes este campo
+
+// Obtener elementos para mostrar mensajes de error
+const errorTitulo = document.getElementById('errorTitulo');
+const errorAnio = document.getElementById('errorAnio');
+const errorCalificacion = document.getElementById('errorCalificacion');
+const errorDirector = document.getElementById('errorDirector');
+
+// --- Funciones de Utilidad para Errores ---
+function mostrarError(inputElement, errorElement, message) {
+    errorElement.textContent = message;
+    errorElement.style.display = 'block'; // Mostrar el mensaje de error
+    inputElement.classList.add('input-error'); // Añadir clase para estilos de error
+}
+
+function limpiarError(inputElement, errorElement) {
+    errorElement.textContent = '';
+    errorElement.style.display = 'none'; // Ocultar el mensaje de error
+    inputElement.classList.remove('input-error'); // Quitar clase de error
+}
+
+// --- Listener para el envío del formulario ---
+formPelicula.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevenir el envío por defecto
+
+    let formValido = true; // Bandera para controlar la validez general del formulario
+
+    // Limpiar todos los errores al inicio de cada intento de validación
+    limpiarError(inputTitulo, errorTitulo);
+    limpiarError(inputAnio, errorAnio);
+    limpiarError(inputCalificacion, errorCalificacion);
+    limpiarError(inputDirector, errorDirector);
+
+
+    // --- Verificación 1: Campos vacíos ---
+    if (inputTitulo.value.trim() === '') {
+        mostrarError(inputTitulo, errorTitulo, 'El título es obligatorio.');
+        formValido = false;
+    }
+    if (inputDirector.value.trim() === '') {
+        mostrarError(inputDirector, errorDirector, 'El director es obligatorio.');
+        formValido = false;
+    }
+    // ... Repetir para otros campos de texto/número que no tengan validaciones especiales ...
+
+    // Si `formValido` es `false` aquí, ya hay errores y no tiene sentido seguir con las validaciones más específicas.
+    // Aunque para una validación completa, es mejor ejecutar todas y reportar todos los errores a la vez.
+    // La estrategia de "mostrar todos los errores" es generalmente mejor para el usuario.
+});
+2. Verificación del Año (Número entre 1900 y Año Actual)
+Esta es una validación numérica con un rango.
+
+JavaScript
+
+// Dentro del evento submit del formulario, después de la limpieza de errores
+// ... (código anterior) ...
+
+    // --- Verificación 2: Año válido ---
+    const anioValor = parseInt(inputAnio.value.trim()); // Convertir a número entero
+    const anioActual = new Date().getFullYear(); // Obtener el año actual dinámicamente
+
+    if (isNaN(anioValor) || inputAnio.value.trim() === '') { // Primero verificar si es un número o está vacío
+        mostrarError(inputAnio, errorAnio, 'El año es obligatorio y debe ser un número.');
+        formValido = false;
+    } else if (anioValor < 1900 || anioValor > anioActual) {
+        mostrarError(inputAnio, errorAnio, `El año debe estar entre 1900 y ${anioActual}.`);
+        formValido = false;
+    }
+
+// ... (código posterior) ...
+Explicación:
+
+parseInt(): Convierte la cadena del input a un número entero. Si la cadena no es un número válido, parseInt() devuelve NaN (Not a Number).
+isNaN(anioValor): Comprueba si el resultado de parseInt() es NaN. Esto atrapa casos donde el usuario escribió texto en un campo numérico.
+new Date().getFullYear(): Obtiene el año actual del sistema, lo que hace tu validación robusta y no necesitas actualizarla manualmente cada año.
+3. Verificación de la Calificación (Número entre 1 y 10)
+Similar a la del año, pero con un rango diferente.
+
+JavaScript
+
+// Dentro del evento submit del formulario, después de las verificaciones anteriores
+// ... (código anterior) ...
+
+    // --- Verificación 3: Calificación válida ---
+    const calificacionValor = parseInt(inputCalificacion.value.trim());
+
+    if (isNaN(calificacionValor) || inputCalificacion.value.trim() === '') {
+        mostrarError(inputCalificacion, errorCalificacion, 'La calificación es obligatoria y debe ser un número.');
+        formValido = false;
+    } else if (calificacionValor < 1 || calificacionValor > 10) {
+        mostrarError(inputCalificacion, errorCalificacion, 'La calificación debe ser un número entre 1 y 10.');
+        formValido = false;
+    }
+
+// ... (código posterior) ...
+Integrando Todas las Validaciones y el Resultado Final
+Tu estructura final dentro del submit del formulario se verá así:
+
+JavaScript
+
+formPelicula.addEventListener('submit', function(event) {
+    event.preventDefault();
+    let formValido = true;
+
+    // 1. Limpiar todos los errores antes de empezar
+    limpiarError(inputTitulo, errorTitulo);
+    limpiarError(inputAnio, errorAnio);
+    limpiarError(inputCalificacion, errorCalificacion);
+    limpiarError(inputDirector, errorDirector); // Asegúrate de tener este input y error div
+
+    // 2. Realizar todas las validaciones
+    // Validación de Título (campo vacío)
+    if (inputTitulo.value.trim() === '') {
+        mostrarError(inputTitulo, errorTitulo, 'El título es obligatorio.');
+        formValido = false;
+    }
+
+    // Validación de Director (campo vacío)
+    if (inputDirector.value.trim() === '') {
+        mostrarError(inputDirector, errorDirector, 'El director es obligatorio.');
+        formValido = false;
+    }
+
+    // Validación de Año
+    const anioValor = parseInt(inputAnio.value.trim());
+    const anioActual = new Date().getFullYear();
+    if (isNaN(anioValor) || inputAnio.value.trim() === '') {
+        mostrarError(inputAnio, errorAnio, 'El año es obligatorio y debe ser un número.');
+        formValido = false;
+    } else if (anioValor < 1900 || anioValor > anioActual) {
+        mostrarError(inputAnio, errorAnio, `El año debe estar entre 1900 y ${anioActual}.`);
+        formValido = false;
+    }
+
+    // Validación de Calificación
+    const calificacionValor = parseInt(inputCalificacion.value.trim());
+    if (isNaN(calificacionValor) || inputCalificacion.value.trim() === '') {
+        mostrarError(inputCalificacion, errorCalificacion, 'La calificación es obligatoria y debe ser un número.');
+        formValido = false;
+    } else if (calificacionValor < 1 || calificacionValor > 10) {
+        mostrarError(inputCalificacion, errorCalificacion, 'La calificación debe ser un número entre 1 y 10.');
+        formValido = false;
+    }
+
+
+    // 3. Resultado de la validación
+    if (formValido) {
+        // Si todo es válido, aquí es donde iría la lógica para:
+        // a) Tomar los datos de los campos
+        // b) Determinar el div de destino (Pelicula Mala, Regular, Buena)
+        // c) Crear el nuevo elemento HTML con los datos de la película
+        // d) Insertarlo en el div correspondiente
+        // e) Añadir la línea horizontal
+        // f) Borrar los datos del formulario (resetear campos)
+
+        console.log('¡Formulario válido! Procesando película...');
+        // Ejemplo de cómo acceder a los datos ya validados
+        const datosPelicula = {
+            titulo: inputTitulo.value.trim(),
+            anio: anioValor,
+            calificacion: calificacionValor,
+            director: inputDirector.value.trim()
+        };
+        console.log('Datos:', datosPelicula);
+
+        // Aquí iría el resto de tu lógica para la consigna
+        // Por ejemplo, una función `procesarPelicula(datosPelicula)`
+        // que manejaría la inserción en los divs y el reseteo del formulario.
+
+        // Simulación de reseteo (esto iría al final de tu función `procesarPelicula`)
+        formPelicula.reset(); // Restablece todos los campos del formulario a sus valores iniciales/vacíos
+    } else {
+        console.log('El formulario contiene errores. Por favor, corríjalos.');
+    }
+});
+
+// Opcional: Limpiar errores al escribir en los campos
+inputTitulo.addEventListener('input', () => limpiarError(inputTitulo, errorTitulo));
+inputAnio.addEventListener('input', () => limpiarError(inputAnio, errorAnio));
+inputCalificacion.addEventListener('input', () => limpiarError(inputCalificacion, errorCalificacion));
+inputDirector.addEventListener('input', () => limpiarError(inputDirector, errorDirector));
+Próximos Pasos para tu Consigna
+Una vez que domines estas validaciones, los siguientes pasos lógicos (que te dejo para que resuelvas) son:
+
+Determinar el div de destino: Usando la calificacionValor, aplicar una condición if/else if/else para decidir si es "Pelicula Mala", "Regular" o "Buena" y obtener la referencia al div HTML correspondiente.
+Crear el elemento de la película: Usar document.createElement() para construir la estructura HTML que mostrará los datos de la película (puedes usar un div, p, span para cada dato).
+Insertar el elemento: Utilizar appendChild() para añadir la película al div correcto.
+Añadir la línea horizontal: Crear un elemento <hr> (horizontal rule) y añadirlo después de la película.
+Borrar datos del formulario: Ya te mostré formPelicula.reset(), que es muy útil para esto.
+¡Espero que esto te sea de gran ayuda para avanzar con tu consigna! Si te surge alguna otra duda específica sobre cómo manipular el DOM o crear elementos, pregúntame.

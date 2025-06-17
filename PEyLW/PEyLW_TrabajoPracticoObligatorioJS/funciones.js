@@ -28,7 +28,7 @@ function validar () {
         errores++;
     };
 
-    //que el mail este no vacio y este bien escrito (cos Y coso)
+    //que el mail no este vacio y este bien escrito 
 
     if (email.value.trim() === "" || !validarEmail(email.value)) {
         unError(email)
@@ -40,11 +40,11 @@ function validar () {
         errores++;
     }
 
-    //lo de las fechas 
+    //arrancan las validaciones varias y confirmamos fechas de las fechas 
     //
     //──────▄▌▐▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▌
     //───▄▄██▌█ BEEP BEEP
-    //▄▄▄▌▐██▌█  if's
+    //▄▄▄▌▐██▌█  fechas
     //███████▌█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌
     //▀(⊙)▀▀▀▀▀▀▀(⊙)(⊙)▀▀▀▀▀▀▀▀▀▀(⊙)
 
@@ -93,15 +93,45 @@ function esEnteroPositivo(y) {
     return Number.isInteger(num) && num > 0;
 }
 
-    //las validaciones gracias taringa
+    //las validaciones, gracias taringa
     
 function validarEmail(correoElec) {
     var emotes = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     return emotes.test(correoElec)
 }
 
+
+    //fechas...
+    //ඞ ඞ ඞ ඞ 
 function esFechaValida(d, m, a) {
-  var fecha = new Date(a, m - 1, d);
-  return fecha.getDate() === d && (fecha.getMonth() + 1) === m && fecha.getFullYear() === a;
+
+    //numeros enteros
+    if (!Number.isInteger(d) || !Number.isInteger(m) || !Number.isInteger(a)) {
+        return false;
+    }
+
+    //cantidad meses
+    if (m < 1 || m > 12) {
+        return false;
+    }
+
+    //dias
+    var diasPorMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    //un anio cada cuatro anios
+    if (m === 2 && ((a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0))) {
+        diasPorMes[1] = 29;
+    }
+
+    //dia 32 no existe
+    if (d < 1 || d > diasPorMes[m - 1]) {
+        return false;
+    }
+
+    
+    var fechaIngresada = new Date(a, m - 1, d);
+    var hoy = new Date();
+
+    return fechaIngresada <= hoy;
 }
 

@@ -15,7 +15,7 @@ function validar () {
     var anio = document.getElementById("anio");
     var obSo = document.getElementById('obras_sociales');
 
-    //coss vacios 
+    //cosos vacios 
     // trim() saca los espacios
 
     if (nombre.value.trim() === '') {
@@ -59,10 +59,7 @@ function validar () {
             unError(mes);
             unError(anio);
             errores++;
-        } else {
-            //no se que poner aca
-            // console.log('esta todo bien?)
-        }
+        } 
 
         if (errores > 0) {
             return false

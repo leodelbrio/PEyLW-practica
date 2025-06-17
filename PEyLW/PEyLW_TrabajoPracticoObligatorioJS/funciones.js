@@ -6,7 +6,7 @@ function validar () {
 
     var errores = 0;
 
-    //llamo a los cosos del enunciado 
+    //llamo a los elementos del enunciado 
     var nombre = document.getElementById('nombre');
     var apellido = document.getElementById('apellido');
     var email = document.getElementById('email');
@@ -15,7 +15,7 @@ function validar () {
     var anio = document.getElementById("anio");
     var obSo = document.getElementById('obras_sociales');
 
-    //cosos vacios 
+    // cosos vacios 
     // trim() saca los espacios
 
     if (nombre.value.trim() === '') {
@@ -71,6 +71,7 @@ function validar () {
 
 }
 
+    //si el usuario se equivoca se lo decimos 
 function unError (x) {
     x.style.backgroundColor = 'rgb(252, 128, 100)'
     x.style.border = '3px solid  rgb(255, 47, 0)'
@@ -81,7 +82,7 @@ function dejarEnCero () {
     var i = 0;
 
     for (i = 0; i < aLimpiar.length; i++){
-        aLimpiar[i].style.border = '  '
+        aLimpiar[i].style.border = ''
         aLimpiar[i].style.backgroundColor = ''
     };
 }

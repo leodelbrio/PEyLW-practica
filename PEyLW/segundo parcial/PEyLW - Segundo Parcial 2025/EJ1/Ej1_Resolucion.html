@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Parcial JS </title>
+    <link href="default.css" rel="stylesheet" type="text/css" />
+
+    <script src="EJ1_DBJugadas.js"></script>
+
+    <script>
+      
+      function estaEnArreglo(numero, arreglo) {
+        return arreglo.includes(numero);
+      }
+
+      function verificarNumero () {
+        var slot1 = document.getElementById("slot1");
+        var slot2 = document.getElementById("slot2");
+        var slot3 = document.getElementById("slot3");
+        var slot4 = document.getElementById("slot4");
+        var slot5 = document.getElementById("slot5");
+
+        // que este entre 30
+        if (slot1.value < 1 || slot1.value > 30) {
+          teAlerto(slot1, " Ingreso mal el slot 1");
+        }
+
+        if (slot2.value < 1 || slot2.value > 30) {
+          teAlerto(slot2, " Ingreso mal el slot 2");
+        }
+
+        if (slot3.value < 1 || slot3.value > 30) {
+          teAlerto(slot3, " Ingreso mal el slot 3");
+        }
+
+        if (slot4.value < 1 || slot4.value > 30) {
+          teAlerto(slot4, " Ingreso mal el slot 4");
+        }
+
+        if (slot5.value < 1 || slot5.value > 30) {
+          teAlerto(slot5, " Ingreso mal el slot 5");
+        }
+
+        function teAlerto (y , t) {
+              y.style.backgroundColor = 'rgb(252, 128, 100)'
+              y.style.border = '3px solid  rgb(255, 47, 0)'
+              alert("Hay un error," + t)
+              var mensajeError = document.getElementById("importePremiado");
+              mensajeError.value += "Sorteo Incorrecto, que intenta hacer ud señor?";
+        }
+
+        //que sea un numero y este lleno el espacio
+          
+        if (!esUnNumero(slot1.value)) {
+          teAlerto(slot1, " Ingrese un numero al slot 1")
+        }
+
+        if (!esUnNumero(slot2.value)) {
+          teAlerto(slot2, " Ingrese un numero al slot 2")
+        }
+
+        if (!esUnNumero(slot3.value)) {
+          teAlerto(slot3, " Ingrese un numero al slot 3")
+        }
+
+        if (!esUnNumero(slot4.value)) {
+          teAlerto(slot4, " Ingrese un numero al slot 4")
+        }
+
+        if (!esUnNumero(slot5.value)) {
+          teAlerto(slot5, " Ingrese un numero al slot 5")
+        }
+            
+        function esUnNumero (x){
+          var numerosIngresados = parseInt(x);
+          return Number.isInteger(numerosIngresados) && numerosIngresados > 0;
+        }
+
+        //ganadores y jugadas
+
+        var jugadas = new Array()
+        jugadas = [[26, 29, 11, 19, 23]];
+
+        var tirada = new Array()
+        tirada = [slot1.value, slot2.value, slot3.value, slot4.value, slot5.value];
+        
+
+      }
+    </script>
+
+
+</head>
+
+<body>
+    <div id="header">
+        <div id="logo" style="margin-left: 15px">
+            <h1><a href="#">Programación Estática y Laboratorio Web</a></h1>
+            <h2><a href="#">Parcial JS Ejercicio 1</a></h2>
+        </div>
+    </div>
+    <div id="menu">
+        <ul>
+            <li><a href="Ej1_Consigna.html">Consigna</a></li>
+            <li><a href="Ej1_Resolucion.html">HOJA Ejercicio</a></li>
+        </ul>
+    </div>
+    <div id="content">
+
+
+
+      <input type="text" class="square" id="slot1">
+      <input type="text" class="square" id="slot2">
+      <input type="text" class="square" id="slot3">
+      <input type="text" class="square" id="slot4">
+      <input type="text" class="square" id="slot5">
+      
+      <br/>
+      <button class="button" onclick="verificarNumero();">Encontrar Ganadores</button>      
+      <br/>
+      <br/><br/>
+      <br/><br/>
+
+
+      Importes Premiados U$S:
+      <div id="importePremiado" style="font-size: 48px;background-color: lightgreen; border: 1px solid black;padding: 10px">
+        &nbsp;
+      </div>
+
+      <br>
+
+      Cantidad de Ganadores:
+        <div id="cantidadGanadores" style="font-size: 24px;background-color: lightblue; border: 1px solid black;padding: 10px;">
+          &nbsp;
+        </div>
+       
+
+   
+        <br />
+
+
+
+
+
+        </div>
+
+
+        </table>
+
+    </div>
+    <div id="footer" style="margin-top: 240px;">
+        <p id="legal">Copyright &copy; AtomoHost. All Rights Reserved.
+            Designed by <a href="http://www.freecsstemplates.org/">Free CSS
+                Templates</a>.</p>
+        <p id="links"><a href="#">Privacy Policy</a> | <a href="#">Terms
+                of Use</a></p>
+    </div>
+    <br />
+    <br />
+</body>
+
+
+</html>

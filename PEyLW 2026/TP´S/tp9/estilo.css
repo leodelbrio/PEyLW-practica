@@ -1,0 +1,19 @@
+body {
+    background-color: rgb(255, 0, 0);
+}
+
+div {
+    background-color: white;
+    border: 5px solid rgb(0, 0, 0);
+    width: 500px;
+    height: auto;
+    align-items: center;
+    border-radius: 1%;
+    padding: 10px;
+}
+
+form{
+    border-radius: 10%;
+    flex-direction: column;
+
+}

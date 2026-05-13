@@ -1,0 +1,33 @@
+/* Reset mínimo */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #222;
+}
+
+/* Estructura */
+header {
+  background-color: #333;
+  color: white;
+}
+
+nav {
+  background-color: #ddd;
+}
+
+section {
+  background: white;
+}
+
+/* Links */
+nav a {
+  color: #333;
+  text-decoration: none;
+}

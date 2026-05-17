@@ -1,0 +1,20 @@
+footer {
+    background-color: black;
+}
+
+#letra {
+    color: aliceblue;
+}
+
+header {
+    background-color: lightgoldenrodyellow;
+}
+
+h1{
+    color: blue;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+    font-style: italic;
+}

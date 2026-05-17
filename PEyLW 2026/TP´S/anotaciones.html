@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Footer</title>
+    <style>
+        /* Estilos básicos para el footer */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        footer .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        footer .footer-section {
+            flex: 1 1 200px;
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* Adaptación para pantallas pequeñas */
+        @media (max-width: 600px) {
+            footer .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenido principal -->
+    <main>
+        <h1>Página de ejemplo</h1>
+        <p>Contenido de la página...</p>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Sobre nosotros</h3>
+                <p>Somos una empresa dedicada a ofrecer soluciones web modernas y eficientes.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces útiles</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Email: contacto@empresa.com</p>
+                <p>Tel: +54 123 456 789</p>
+            </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.9em; color: #aaa;">
+            &copy; 2026 Mi Empresa. Todos los derechos reservados.
+        </p>
+    </footer>
+
+</body>
+</html>

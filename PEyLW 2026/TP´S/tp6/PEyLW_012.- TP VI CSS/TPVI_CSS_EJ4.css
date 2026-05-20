@@ -47,3 +47,37 @@ img { border: none; }
    A partir de aqu�, se pueden a�adir todos los estilos propios que 
    sean necesarios.
    ================================================================== */
+
+#cabecera {
+  padding: 1em;
+}
+
+#menu {
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#noticias #publicidad #principal #secundario {
+  padding: 0.5em;
+}
+
+#pie {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.articulo {
+  margin: 1em;
+}
+
+img {
+  margin: 0.5em;
+}
+
+#publicidad {
+  margin-top: 1em;
+}
+
+#pie{
+  margin-top: 1em;
+}

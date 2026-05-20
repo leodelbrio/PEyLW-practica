@@ -1,4 +1,36 @@
 /* Reset mínimo */
+html{
+  font-size: 16px;
+}
+
+main {
+  width: 70vw;
+  margin: auto;
+}
+
+header{
+  height: 30vh;
+}
+
+p{
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+section p{
+  font-size: 1.2em;
+  padding: 2em;
+}
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -20,10 +52,12 @@ header {
 
 nav {
   background-color: #ddd;
+  width: 80%;
 }
 
 section {
   background: white;
+  font-size: 18px;
 }
 
 /* Links */

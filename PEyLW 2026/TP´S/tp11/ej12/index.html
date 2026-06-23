@@ -8,6 +8,9 @@
 <body>
     <button id="botonSaludo">Saludar</button>
 
+    <input type="text" id="teclado" placeholder="Presione una tecla">
+    <p id="tecla"></p>
+
     <script>
         //ASIGANR BOTON DESDE EL HTML
         const boton = document.getElementById("botonSaludo");
@@ -15,6 +18,15 @@
         function saludar() {console.log("hola")};
         //LLAMAR A LA FUNCION SALUDAR EN EL CLICK DEL BOTON
         boton.addEventListener("click", saludar);
+
+        const teclado = document.getElementById("teclado");
+        const tecla = document.getElementById("tecla");
+
+        function mostrarTecla(event){
+            tecla.textContent = "Tecla presionada " + event.key;
+        }
+
+        teclado.addEventListener("keydown" , mostrarTecla);
     </script>
 
     <script src="script.js" defer></script>

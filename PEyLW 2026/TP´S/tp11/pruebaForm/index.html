@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formulario">
+        <input type="text" id="nombreForm" placeholder="Nombre">
+        <button type="submit">Enviar</button>
+    </form>
+
+    <p id="mensajeForm"></p>
+
+    <img src="img/kadabra.png" alt="foto de carta pokemon kadabra" id="poke" width="250">
+    <br>
+    <button id="desevolucionar">Base</button>
+    <button id="fase1">Fase 1</button>
+    <button id="evolucionar">Fase 2</button>
+
+
+    <script>
+
+        const poke = document.getElementById("poke");
+        const desevolucionar = document.getElementById("desevolucionar");
+        const fase1 = document.getElementById("fase1")
+        const evolucionar = document.getElementById("evolucionar")
+
+        function cambiarAbra(){
+            poke.src = "img/abra.png";
+        }
+
+        function cambiarKadabra (){
+            poke.src = "img/Kadabra.png"
+        }
+
+        function cambiarAlakazam(){
+            poke.src = "img/alakazam.png";
+        }
+
+        desevolucionar.addEventListener("click", cambiarAbra)
+        fase1.addEventListener("click", cambiarKadabra)
+        evolucionar.addEventListener("click", cambiarAlakazam)
+//----------------------------------------------------------------------------
+        const formulario = document.getElementById("formulario")
+        const nombreForm = document.getElementById("nombreForm")
+        const mensajeForm = document.getElementById("mensajeForm")
+
+        function validarFormulario(event){
+            event.preventDefault();
+
+            if (nombreForm.value === "") {
+                mensajeForm.textContent = "Debe ingresar un nombre!"
+            } else {
+                mensajeForm.textContent = "Formulario enviado correctamente!"
+            };
+        };
+
+        formulario.addEventListener("submit", validarFormulario);
+    </script>
+    <script src="script.js" defer></script>
+</body>
+</html>
